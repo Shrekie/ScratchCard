@@ -1,0 +1,18 @@
+.hidden-text-container {
+    pointer-events: none;
+    background: transparent;
+    position: absolute;
+    height: 600;
+    width: 800;
+    top: 0;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+}
+
+.hidden-text {
+    color: gold;
+    text-align: center;
+    font-size: 40px;
+    pointer-events: none;
+}
