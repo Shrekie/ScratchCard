@@ -1,0 +1,73 @@
+<canvas width="800" height="600" id="projection">
+
+</canvas>
+
+<div class="hidden-text-container">
+    <p class="hidden-text">hello</p>
+</div>
+
+<style>
+    .hidden-text-container {
+        pointer-events: none;
+        background: transparent;
+        position: absolute;
+        height: 600;
+        width: 800;
+        top: 0;
+        display: flex;
+        justify-content: center;
+        align-items: center;
+    }
+
+    .hidden-text {
+        color: gold;
+        text-align: center;
+        font-size: 40px;
+    }
+</style>
+
+
+<script>
+
+    /* 
+        Renders a text input under a scratchable card by finger motion 
+    */
+
+    class ScratchCard {
+
+        constructor() {
+            this.projectionCanvas = document.getElementById("projection");
+            this.tableHeight = this.projectionCanvas.getAttribute("height");
+            this.tableWidth = this.projectionCanvas.getAttribute("width");
+            this.canvasTool = this.projectionCanvas.getContext("2d");
+        }
+
+        paintShim() {
+            this.canvasTool.fillStyle = "gold";
+            this.canvasTool.fillRect(0, 0, this.tableWidth, this.tableHeight);
+        }
+
+        fingerMotion() {
+            this.projectionCanvas.addEventListener('touchmove', (e) => {
+                let xTouch = e.changedTouches[0].pageX;
+                let yTouch = e.changedTouches[0].pageY;
+                this.eraser(xTouch, yTouch);
+            }, false);
+        }
+
+        eraser(x, y) {
+            this.canvasTool.beginPath();
+            this.canvasTool.arc(x, y, 50, 0, 2 * Math.PI);
+            this.canvasTool.strokeStyle = 'white';
+            this.canvasTool.stroke();
+            this.canvasTool.fillStyle = 'white';
+            this.canvasTool.fill();
+        }
+
+    }
+
+    let scratchCard = new ScratchCard();
+    scratchCard.fingerMotion();
+    scratchCard.paintShim();
+
+</script>
